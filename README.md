@@ -1,4 +1,4 @@
 # TASK GEST
 ## Sistema de Gerenciamento de Tarefas
 
-### Laravel + Vue Js
+### Laravel + Vue Js + Inertia Js
