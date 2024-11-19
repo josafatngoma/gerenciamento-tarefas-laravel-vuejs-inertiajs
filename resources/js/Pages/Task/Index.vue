@@ -5,14 +5,14 @@ import { Head, Link, useForm } from '@inertiajs/vue3';
 
 /** props */
 const props = defineProps({
-  tasks: {
-    type: Array,
-    default: () => [],
-  },
-  statuses: {
-    type: Array,
-    default: () => [],
-  },
+    tasks: {
+        type: Array,
+        default: () => [],
+    },
+    statuses: {
+        type: Array,
+        default: () => [],
+    },
 });
 const { tasks, statuses } = props;
 
@@ -25,16 +25,16 @@ const deleteTask = (id) => {
 
 // Retornar a classe CSS com base no status
 const getStatusColor = (status) => {
-  switch (status.designation) {
-    case 'Pendente':
-      return 'text-yellow-500 font-bold';
-    case 'Concluída':
-      return 'text-green-500 font-bold';
-    case 'Em Curso':
-      return 'text-blue-500 font-bold';
-    default:
-      return 'text-gray-500 font-bold';
-  }
+    switch (status.designation) {
+        case 'Pendente':
+            return 'text-yellow-500 font-bold';
+        case 'Concluída':
+            return 'text-green-500 font-bold';
+        case 'Em Curso':
+            return 'text-blue-500 font-bold';
+        default:
+            return 'text-gray-500 font-bold';
+    }
 };
 
 // fitrando tarefas por status ou datas
@@ -42,21 +42,21 @@ let currentStatus = ref(null);
 let currentDateFilter = ref(null);
 
 const filterTasks = computed(() => {
-  let filtered = tasks;
+    let filtered = tasks;
 
-  // por status
-  if (currentStatus.value !== null) {
-    filtered = filtered.filter(task => task.status_id === currentStatus.value);
-  }
+    // por status
+    if (currentStatus.value !== null) {
+        filtered = filtered.filter(task => task.status_id === currentStatus.value);
+    }
 
-  // por data de criação ou atualização
-  if (currentDateFilter.value === 'created') {
-    filtered = filtered.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
-  } else if (currentDateFilter.value === 'updated') {
-    filtered = filtered.sort((a, b) => new Date(a.updated_at) - new Date(b.updated_at));
-  }
+    // por data de criação ou atualização
+    if (currentDateFilter.value === 'created') {
+        filtered = filtered.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+    } else if (currentDateFilter.value === 'updated') {
+        filtered = filtered.sort((a, b) => new Date(a.updated_at) - new Date(b.updated_at));
+    }
 
-  return filtered;
+    return filtered;
 });
 
 </script>

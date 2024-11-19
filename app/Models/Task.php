@@ -12,7 +12,7 @@ class Task extends Model
     protected $table = 'tasks';
 
     protected $fillable = [
-        'title', 'description', 'status_id'
+        'title', 'description', 'status_id', 'user_id'
     ];
 
     // Relacionamento com Status

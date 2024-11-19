@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -16,6 +17,13 @@ return new class extends Migration
             $table->string('designation', 20);
             $table->timestamps();
         });
+
+        //valores por default na tb status
+        DB::table('status')->insert([
+            ['designation' => 'Pendente'],
+            ['designation' => 'Em Curso'],
+            ['designation' => 'Concluída']
+        ]);
     }
 
     /**
