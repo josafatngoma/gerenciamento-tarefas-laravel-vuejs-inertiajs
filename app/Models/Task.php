@@ -15,6 +15,12 @@ class Task extends Model
         'title', 'description', 'status_id', 'user_id'
     ];
 
+    // Relacionamento com User
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     // Relacionamento com Status
     public function status()
     {

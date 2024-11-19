@@ -13,8 +13,17 @@ const props = defineProps({
         type: Array,
         default: () => [],
     },
+    isAdmin: {
+        type: Boolean,
+        required: true,
+    },
+    user: {   // Receber o usuário logado como prop
+        type: Object,
+        required: true,
+    },
 });
-const { tasks, statuses } = props;
+
+const { tasks, statuses, isAdmin, user } = props;
 
 const form = useForm({});
 
@@ -44,6 +53,11 @@ let currentDateFilter = ref(null);
 const filterTasks = computed(() => {
     let filtered = tasks;
 
+    // Se não for admin, filtra para mostrar apenas as tarefas do usuário logado
+    if (!isAdmin) {
+        filtered = filtered.filter(task => task.user_id === user.id);  // Usando user.id em vez de form.user.id
+    }
+
     // por status
     if (currentStatus.value !== null) {
         filtered = filtered.filter(task => task.status_id === currentStatus.value);
@@ -58,7 +72,6 @@ const filterTasks = computed(() => {
 
     return filtered;
 });
-
 </script>
 
 <template>
@@ -75,12 +88,16 @@ const filterTasks = computed(() => {
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
-                        <Link href="tasks/create"><button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3">Criar Nova Tarefa</button></Link>
+                        <Link href="tasks/create">
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3">
+                                Criar Nova Tarefa
+                            </button>
+                        </Link>
                         
                         <div class="flex flex-col items-end space-y-4 mb-4 float-right">
 
                             <!-- filtrar por status -->
-                            <div >
+                            <div>
                                 <h3>Filtrar:</h3>
                                 <button
                                     class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded"
@@ -98,7 +115,6 @@ const filterTasks = computed(() => {
                                 >
                                     {{ status.designation }}
                                 </button>
-
                             </div>
 
                             <!-- filtrar por datas -->
@@ -130,6 +146,7 @@ const filterTasks = computed(() => {
                                 <th class="border px-4 py-2">Criação</th>
                                 <th class="border px-4 py-2">Última atualização</th>
                                 <th class="border px-4 py-2">Estado</th>
+                                <th class="border px-4 py-2">Usuário</th>
                                 <th class="border px-4 py-2" width="250px">Opções</th>
                               </tr>
                             </thead>
@@ -141,16 +158,15 @@ const filterTasks = computed(() => {
                                   <td class="border px-4 py-2">{{ new Date(task.created_at).toLocaleDateString() }}</td>
                                   <td class="border px-4 py-2">{{ new Date(task.updated_at).toLocaleString() }}</td>
 
-
                                   <td class="border px-4 py-2 text-center">
                                     <span :class="getStatusColor(statuses?.find(s => s.id === task.status_id))">
                                         {{ statuses?.find(s => s.id === task.status_id)?.designation || '...' }}
                                     </span>
                                   </td>
 
+                                  <td class="border px-4 py-2">{{ task.user.name }}</td>
 
                                   <td class="border px-4 py-2 text-center">
-
                                     <template v-if="task.status_id !== 3"> <!-- exibe apenas que a tarefa não estiver como concluída -->
                                         <Link :href="`tasks/${task.id}/edit`">
                                             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">

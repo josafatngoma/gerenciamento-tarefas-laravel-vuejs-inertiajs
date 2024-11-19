@@ -17,6 +17,7 @@ class UsersSeeder extends Seeder
             [
                 'name' => 'Josafat Ngoma',
                 'email' => 'josafat@example.com',
+                'user_type' => 'admin',
                 'password' => bcrypt('password'),
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -24,6 +25,7 @@ class UsersSeeder extends Seeder
             [
                 'name' => 'David',
                 'email' => 'david@example.com',
+                'user_type' => 'user',
                 'password' => bcrypt('password'),
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -31,6 +33,7 @@ class UsersSeeder extends Seeder
             [
                 'name' => 'Priscila',
                 'email' => 'priscila@example.com',
+                'user_type' => 'admin',
                 'password' => bcrypt('password'),
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -38,6 +41,7 @@ class UsersSeeder extends Seeder
             [
                 'name' => 'Ana',
                 'email' => 'ana@example.com',
+                'user_type' => 'user',
                 'password' => bcrypt('password'),
                 'created_at' => now(),
                 'updated_at' => now(),

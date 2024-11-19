@@ -6,7 +6,9 @@ use App\Models\Statu;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
+use App\Models\User;
 
 class TaskController extends Controller
 {
@@ -15,12 +17,17 @@ class TaskController extends Controller
     */
     public function index()
     {
-        $tasks = Task::with('status')->orderBy('created_at', 'desc')->get();
+        $tasks = Task::with(['status', 'user'])->orderBy('created_at', 'desc')->get();
         $statuses = Statu::all(); //pegando os status para os filtrar no front
+
+        $user = auth()->user();
+        $isAdmin = Gate::allows('isAdmin', $user); // Verificar se o usuário é um admin usando a Gate
         
         return Inertia::render('Task/Index', [
             'tasks' => $tasks, //exibir a lista das tarefas 
             'statuses' => $statuses, //para filtrar os dados na tb
+            'user' => $user, //usuário logado
+            'isAdmin' => $isAdmin,  // passando a verificação de admin para o Vue
         ]);
     }
 
@@ -38,6 +45,7 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $task = new Task($request->all());
+        $task->user_id = auth()->id();
         $task->save();
 
         return redirect()->route('tasks.index');
