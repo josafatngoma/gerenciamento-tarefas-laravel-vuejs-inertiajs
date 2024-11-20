@@ -28,9 +28,16 @@ const { tasks, statuses, isAdmin, user } = props;
 const form = useForm({});
 
 //eliminar uma tarefa
-const deleteTask = (id) => {
-    form.delete(`tasks/${id}`);
+const deleteTask = async (id) => {
+    await form.delete(`tasks/${id}`, {
+        onSuccess: () => {
+            // excluir localmente para evitar uma consulta/atualização pelo server
+            const index = tasks.findIndex((task) => task.id === id);
+            if (index !== -1) tasks.splice(index, 1);
+        },
+    });
 };
+
 
 // Retornar a classe CSS com base no status
 const getStatusColor = (status) => {

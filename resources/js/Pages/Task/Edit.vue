@@ -17,11 +17,34 @@ const form = useForm({
   title: props.task?.title || "",
   description: props.task?.description || "",
   status_id: props.task.status_id,
+  errors: {}
 });
 
+// validando os campos
+const validateForm = () => {
+    const errors = {};
 
+    if (!form.title || form.title.length < 4) {
+        errors.title = "O título deve conter pelo menos 4 caracteres.";
+    }
+
+    if (!form.description || form.description.length < 12) {
+        errors.description = "A descrição deve conter pelo menos 12 caracteres.";
+    }
+
+    return errors;
+};
+
+// enviando os dados no back
 const submit = () => {
-  form.put(`/tasks/${props.task.id}`);
+    const errors = validateForm();
+
+    if (Object.keys(errors).length > 0) {
+        form.errors = errors;
+    } else {
+        form.errors = {}; //limpando os erros
+        form.put(`/tasks/${props.task.id}`);
+    }
 };
 </script>
 
@@ -51,7 +74,8 @@ const submit = () => {
                                     placeholder="Enter Title" 
                                     id="title"
                                     v-model="form.title" />
-
+                                <!-- erro -->
+                                <p v-if="form.errors.title" class="text-red-500 text-sm mt-1">{{ form.errors.title }}</p>
                             </div>
 
                             <div class="mb-4">
@@ -62,7 +86,9 @@ const submit = () => {
                                 <textarea 
                                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="description" 
                                     v-model="form.description" 
-                                    placeholder="Escreva a descrição da tarefa"></textarea>
+                                    placeholder="Escreva a descrição da tarefa">
+                                </textarea>
+                                <p v-if="form.errors.description" class="text-red-500 text-sm mt-1">{{form.errors.description}}</p>
                             </div>
 
                             <div class="mb-4">

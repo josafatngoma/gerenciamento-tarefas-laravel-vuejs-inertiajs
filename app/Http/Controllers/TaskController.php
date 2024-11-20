@@ -44,6 +44,11 @@ class TaskController extends Controller
     */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required|min:4',
+            'description' => 'required|min:12',
+        ]);
+
         $task = new Task($request->all());
         $task->user_id = auth()->id();
         $task->save();
@@ -68,8 +73,13 @@ class TaskController extends Controller
     */
     public function update(Request $request, Task $task)
     {
-      $task->update($request->all());
-      return redirect()->route('tasks.index');
+        $request->validate([
+            'title' => 'required|min:3',
+            'description' => 'required|min:10',
+        ]);
+        
+        $task->update($request->all());
+        return redirect()->route('tasks.index');
     }
 
     /**
