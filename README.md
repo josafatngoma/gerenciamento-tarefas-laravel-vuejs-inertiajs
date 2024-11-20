@@ -4,6 +4,6 @@
 ### Laravel + Vue Js (with Inertia Js)
 
 RUN:
-<p>php artisan serve</p>
-<p>php artisan migrate</p>
-<p>php artisan db:seed</p>
+<p> > php artisan serve </p>
+<p> > php artisan migrate </p>
+<p> >php artisan db:seed </p>
