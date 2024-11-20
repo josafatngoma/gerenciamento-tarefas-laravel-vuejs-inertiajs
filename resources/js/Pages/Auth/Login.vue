@@ -37,7 +37,13 @@ const submit = () => {
             {{ status }}
         </div>
 
+        <h2
+            class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200 text-center"
+        >
+           Seja Bem-vindo ao<br>TASK GEST
+        </h2>
         <form @submit.prevent="submit">
+
             <div>
                 <InputLabel for="email" value="Email" />
 
@@ -55,7 +61,7 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+                <InputLabel for="password" value="Senha" />
 
                 <TextInput
                     id="password"
@@ -73,7 +79,7 @@ const submit = () => {
                 <label class="flex items-center">
                     <Checkbox name="remember" v-model:checked="form.remember" />
                     <span class="ms-2 text-sm text-gray-600 dark:text-gray-400"
-                        >Remember me</span
+                        >Manter-me conectado</span
                     >
                 </label>
             </div>
@@ -84,7 +90,7 @@ const submit = () => {
                     :href="route('password.request')"
                     class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
                 >
-                    Forgot your password?
+                    Esqueci-me da senha
                 </Link>
 
                 <PrimaryButton
@@ -94,7 +100,11 @@ const submit = () => {
                 >
                     Log in
                 </PrimaryButton>
+
             </div>
+            <Link href="/register"><button
+                class="bg-white hover:bg-gray-300 text-black font-bold py-2 px-4 rounded my-3">Criar Conta</button>
+            </Link>
         </form>
     </GuestLayout>
 </template>

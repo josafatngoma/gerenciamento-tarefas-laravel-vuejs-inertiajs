@@ -38,7 +38,7 @@ const showingNavigationDropdown = ref(false);
                                     :href="route('dashboard')"
                                     :active="route().current('dashboard')"
                                 >
-                                    Dashboard
+                                    Página Inicial
                                 </NavLink>
 
                                 <NavLink :href="route('tasks.index')" :active="route().current('tasks.index')">
@@ -80,14 +80,14 @@ const showingNavigationDropdown = ref(false);
                                         <DropdownLink
                                             :href="route('profile.edit')"
                                         >
-                                            Profile
+                                            Perfil
                                         </DropdownLink>
                                         <DropdownLink
                                             :href="route('logout')"
                                             method="post"
                                             as="button"
                                         >
-                                            Log Out
+                                            Sair
                                         </DropdownLink>
                                     </template>
                                 </Dropdown>
@@ -150,7 +150,7 @@ const showingNavigationDropdown = ref(false);
                             :href="route('dashboard')"
                             :active="route().current('dashboard')"
                         >
-                            Dashboard
+                            Página Inicial
                         </ResponsiveNavLink>
                     </div>
 
@@ -178,7 +178,7 @@ const showingNavigationDropdown = ref(false);
                                 method="post"
                                 as="button"
                             >
-                                Log Out
+                                Sair
                             </ResponsiveNavLink>
                         </div>
                     </div>

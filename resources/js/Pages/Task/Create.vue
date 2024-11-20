@@ -72,7 +72,7 @@ const submit = () => {
                                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="description" v-model="form.description"
                                     placeholder="Escreva a descrição da tarefa">
-                                </textarea>
+                        </textarea>
                                 <p v-if="form.errors.description" class="text-red-500 text-sm mt-1">{{
                                     form.errors.description
                                 }}</p>
